@@ -1,12 +1,19 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractionDetector : MonoBehaviour
 {
     private IInteractable interactableInRange = null; //Closest interactable
 
+    public void OnInteract()
+    {
+        interactableInRange.Interact();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IInteractable interactable) && interactable.CanInteract())
+        var interactable = collision.gameObject.GetComponent<IInteractable>();
+        if (interactable != null)
         {
             interactableInRange = interactable;
         }
@@ -14,9 +21,6 @@ public class InteractionDetector : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IInteractable interactable) && interactable == interactableInRange)
-        {
-            interactableInRange = interactable;
-        }
+        interactableInRange = null;
     }
 }

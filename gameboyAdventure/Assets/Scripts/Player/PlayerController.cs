@@ -2,19 +2,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterController))]
-
 public class PlayerController : MonoBehaviour
 {
     private Vector2 _input;
-    private CharacterController _characterController;
+    private Rigidbody2D _rb;
     private Vector3 _direction;
 
     [SerializeField] private float speed;
 
+    [SerializeField] private InteractionDetector _interactor;
+
     private void Awake()
     {
-        if (_characterController == null) _characterController = GetComponent<CharacterController>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyMovement()
     {
-        _characterController.Move(_direction * speed * Time.deltaTime);
+        _rb.linearVelocity = _direction * speed; // * Time.deltaTime;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -35,13 +35,19 @@ public class PlayerController : MonoBehaviour
 
     public void Interact(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-        Debug.Log("Inting");
+        if (context.performed)
+        {
+            _interactor.OnInteract();
+            Debug.Log("Player Inting");
+        }
+        
     }
 
     public void Back(InputAction.CallbackContext context) 
     {
-        if (!context.started) return;
-        Debug.Log("Backing");
+        if (context.performed)
+        {
+            Debug.Log("Player Backing");
+        }
     }
 }
