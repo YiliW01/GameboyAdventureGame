@@ -7,20 +7,32 @@ public class InteractionDetector : MonoBehaviour
 
     public void OnInteract()
     {
-        interactableInRange.Interact();
+        if (interactableInRange != null)
+        {
+            interactableInRange.Interact();
+        }
+        else { Debug.Log("Nothing to Interact"); }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var interactable = collision.gameObject.GetComponent<IInteractable>();
-        if (interactable != null)
+        if (collision.TryGetComponent(out IInteractable interactable)  && interactable.CanInteract())
         {
             interactableInRange = interactable;
         }
+        //var interactable = collision.gameObject.GetComponent<IInteractable>();
+        //if (interactable != null)
+        //{
+        //    interactableInRange = interactable;
+        //}
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        interactableInRange = null;
+        if (collision.TryGetComponent(out IInteractable interactable) && interactable == interactableInRange)
+        {
+            interactableInRange = null;
+        }
+        
     }
 }

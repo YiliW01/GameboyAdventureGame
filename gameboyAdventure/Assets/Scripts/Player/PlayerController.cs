@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             _interactor.OnInteract();
-            Debug.Log("Player Inting");
+            //Debug.Log("Player Inting");
         }
         
     }
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Player Backing");
+            //Debug.Log("Player Backing");
         }
     }
 }
