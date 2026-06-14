@@ -4,6 +4,7 @@ using UnityEngine;
 public class InteractionDetector : MonoBehaviour
 {
     private IInteractable interactableInRange = null; //Closest interactable
+    private Pushable pushableInRange = null; //Closest pushable
 
     public void OnInteract()
     {
@@ -12,6 +13,24 @@ public class InteractionDetector : MonoBehaviour
             interactableInRange.Interact();
         }
         else { Debug.Log("Nothing to Interact"); }
+
+        if (pushableInRange != null)
+        {
+            Vector2 direction = 
+                (pushableInRange.transform.position - gameObject.transform.position).normalized;
+
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            {
+                direction = new Vector2(Mathf.Sign(direction.x), 0);
+            }
+            else
+            {
+                direction = new Vector2(0, Mathf.Sign(direction.y));
+            }
+
+            pushableInRange.TryPush(direction);
+        }
+        else { Debug.Log("Nothing to Push"); }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,11 +39,11 @@ public class InteractionDetector : MonoBehaviour
         {
             interactableInRange = interactable;
         }
-        //var interactable = collision.gameObject.GetComponent<IInteractable>();
-        //if (interactable != null)
-        //{
-        //    interactableInRange = interactable;
-        //}
+        
+        if (collision.TryGetComponent(out Pushable pushable))
+        {
+            pushableInRange = pushable;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -33,6 +52,10 @@ public class InteractionDetector : MonoBehaviour
         {
             interactableInRange = null;
         }
-        
+
+        if (collision.TryGetComponent(out Pushable pushable) && pushable == pushableInRange)
+        {
+            pushableInRange = null;
+        }
     }
 }
