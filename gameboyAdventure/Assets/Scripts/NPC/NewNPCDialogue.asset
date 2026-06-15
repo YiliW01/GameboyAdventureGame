@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: 
   dialogueLines:
-  - 
-  - 
+  - Hello, Sir Knight
+  - Help me!
+  autoProgressLines: 0100
+  autoProgressDelay: 1.5
