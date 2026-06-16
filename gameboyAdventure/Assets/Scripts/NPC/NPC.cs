@@ -1,11 +1,14 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class NPC : MonoBehaviour, IInteractable
 {
-    public NPCDialogue dialogueData;
-    public GameObject dialoguePanel;
-    public TMP_Text dialogueText, nameText;
+    [Header("NPC Dialogue Object:")]
+    [SerializeField] private NPCDialogue dialogueData;
+    private GameObject dialoguePanel => UIManager.Instance.dialoguePanel;
+    private TMP_Text dialogueText => UIManager.Instance.dialogueText;
+    private TMP_Text nameText => UIManager.Instance.nameText;
 
     private int dialogueIndex;
     private bool isDialogueActive;
@@ -17,16 +20,16 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (dialogueData == null && !isDialogueActive) //NEEDS PAUSE
+        if (dialogueData == null || PauseManager.Instance.IsGamePaused && !isDialogueActive)
             return;
 
         if (isDialogueActive)
         {
-            //NextLine
+            NextLine();
         }
         else
         {
-            //StartDialogue();
+            StartDialogue();
         }
     }
 
@@ -35,9 +38,38 @@ public class NPC : MonoBehaviour, IInteractable
         isDialogueActive = true;
         dialogueIndex = 0;
 
-        nameText.SetText(dialogueData.name);
+        nameText.SetText(dialogueData.npcName);
 
         dialoguePanel.SetActive(true);
-        //PauseController.SetPause(true);
+        PauseManager.Instance.SetPause(true);
+
+        dialogueText.SetText(dialogueData.dialogueLines[dialogueIndex]);
+
+        TypeText();
+    }
+
+    void NextLine()
+    {
+        if(++dialogueIndex < dialogueData.dialogueLines.Length)
+        {
+            TypeText();
+        }
+        else
+        {
+            EndDialogue();
+        }
+    }
+
+    void TypeText()
+    {
+        dialogueText.SetText(dialogueData.dialogueLines[dialogueIndex]);
+    }
+
+    public void EndDialogue()
+    {
+        isDialogueActive = false;
+        dialogueText.SetText("");
+        dialoguePanel.SetActive(false);
+        PauseManager.Instance.SetPause(false);
     }
 }

@@ -5,6 +5,4 @@ public class NPCDialogue : ScriptableObject
 {
     public string npcName;
     public string[] dialogueLines;
-    public bool[] autoProgressLines;
-    public float autoProgressDelay = 1.5f;
 }

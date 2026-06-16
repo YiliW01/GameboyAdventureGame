@@ -6,14 +6,23 @@ public class Pushable : MonoBehaviour
     [SerializeField] private float _pushSpeed;
     private bool isMoving = false;
     [SerializeField] private LayerMask obstaclesLayer;
+    [SerializeField] private float pushDistance = 2;
+    public bool allowPush;
+
+    private void Start()
+    {
+        allowPush = true;
+    }
 
     public bool TryPush(Vector2 direction)
     {
-        if (isMoving) return false;
+        if (!allowPush) { return false; }
 
-        Vector3 targetPos = transform.position + new Vector3(direction.x, direction.y, 0f);
+        if (isMoving) { return false; }
 
-        if (IsTileBlocked(targetPos)) return false;
+        Vector3 targetPos = transform.position + (new Vector3(direction.x, direction.y, 0f) * pushDistance);
+
+        if (IsTileBlocked(targetPos)) { return false; }
 
         StartCoroutine(Move(targetPos, _pushSpeed));
         return true;

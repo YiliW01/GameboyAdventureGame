@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (PauseManager.Instance.IsGamePaused)
+        {
+            _rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         ApplyMovement();
     }
 
@@ -48,6 +54,8 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             //Debug.Log("Player Backing");
+            if (PauseManager.Instance.IsGamePaused) { PauseManager.Instance.SetPause(false); }
+            else { PauseManager.Instance.SetPause(true); }
         }
     }
 }

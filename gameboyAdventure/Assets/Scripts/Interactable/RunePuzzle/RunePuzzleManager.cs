@@ -21,7 +21,7 @@ public class RunePuzzleManager : MonoBehaviour
     {
         if (IsPuzzleSolved())
         {
-            Debug.Log("Puzzle Solved!");
+            Debug.Log("RUNE Puzzle Solved!");
             //do other stuff here
         }
     }
