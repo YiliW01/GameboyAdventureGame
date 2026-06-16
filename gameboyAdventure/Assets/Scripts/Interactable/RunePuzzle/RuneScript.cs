@@ -19,8 +19,8 @@ public class Rune : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        RotateSprite();
         Debug.Log($"Current rune is: {IsCorrect}");
+        RotateSprite();
     }
 
     private void RotateSprite()
