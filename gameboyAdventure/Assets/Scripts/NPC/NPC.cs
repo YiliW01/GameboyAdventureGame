@@ -5,13 +5,16 @@ using UnityEngine;
 public class NPC : MonoBehaviour, IInteractable
 {
     [Header("NPC Dialogue Object:")]
-    [SerializeField] private NPCDialogue dialogueData;
+    [SerializeField] private NPCDialogue[] dialogueData;
+
     private GameObject dialoguePanel => UIManager.Instance.dialoguePanel;
     private TMP_Text dialogueText => UIManager.Instance.dialogueText;
     private TMP_Text nameText => UIManager.Instance.nameText;
 
-    private int dialogueIndex;
+    private int dialogueLineIndex;
     private bool isDialogueActive;
+    private int currentDialogueDataIndex;
+    [SerializeField] private bool isWizard;
 
     public bool CanInteract()
     {
@@ -29,28 +32,32 @@ public class NPC : MonoBehaviour, IInteractable
         }
         else
         {
+            if (isWizard && QuestTracker.Instance.hasWand == true) { QuestTracker.Instance.GiveWand(); }
             StartDialogue();
         }
     }
 
     void StartDialogue()
     {
-        isDialogueActive = true;
-        dialogueIndex = 0;
+        if (QuestTracker.Instance.questComplete == true && currentDialogueDataIndex < dialogueData.Length) { currentDialogueDataIndex++; }
 
-        nameText.SetText(dialogueData.npcName);
+        isDialogueActive = true;
+        dialogueLineIndex = 0;
+
+        nameText.SetText(dialogueData[currentDialogueDataIndex].npcName);
 
         dialoguePanel.SetActive(true);
         PauseManager.Instance.SetPause(true);
 
-        dialogueText.SetText(dialogueData.dialogueLines[dialogueIndex]);
+        dialogueText.SetText(dialogueData[currentDialogueDataIndex].dialogueLines[dialogueLineIndex]);
 
         TypeText();
+        
     }
 
     void NextLine()
     {
-        if(++dialogueIndex < dialogueData.dialogueLines.Length)
+        if(++dialogueLineIndex < dialogueData[currentDialogueDataIndex].dialogueLines.Length)
         {
             TypeText();
         }
@@ -62,7 +69,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     void TypeText()
     {
-        dialogueText.SetText(dialogueData.dialogueLines[dialogueIndex]);
+        dialogueText.SetText(dialogueData[currentDialogueDataIndex].dialogueLines[dialogueLineIndex]);
     }
 
     public void EndDialogue()

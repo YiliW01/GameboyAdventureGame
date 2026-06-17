@@ -3,6 +3,7 @@ using UnityEngine;
 public class RunePuzzleManager : MonoBehaviour
 {
     [SerializeField] private Rune[] _runes;
+    [SerializeField] private DoorScript runeDoor;
 
     public bool IsPuzzleSolved()
     {
@@ -22,7 +23,7 @@ public class RunePuzzleManager : MonoBehaviour
         if (IsPuzzleSolved())
         {
             Debug.Log("RUNE Puzzle Solved!");
-            //do other stuff here
+            runeDoor.OpenDoor();
         }
     }
 }

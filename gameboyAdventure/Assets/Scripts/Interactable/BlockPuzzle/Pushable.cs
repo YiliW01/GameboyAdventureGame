@@ -7,25 +7,24 @@ public class Pushable : MonoBehaviour
     private bool isMoving = false;
     [SerializeField] private LayerMask obstaclesLayer;
     [SerializeField] private float pushDistance = 2;
-    public bool allowPush;
+    [SerializeField] private BlockPuzzleManager blockPuzzleManager;
 
-    private void Start()
+    private bool CanPush()
     {
-        allowPush = true;
+        if (blockPuzzleManager.IsPuzzleSolved() || isMoving == true) { return false; }
+        return true;
     }
 
-    public bool TryPush(Vector2 direction)
+    public void TryPush(Vector2 direction)
     {
-        if (!allowPush) { return false; }
-
-        if (isMoving) { return false; }
-
+        if (!CanPush()) { return; }
+        //Debug.Log("1");
         Vector3 targetPos = transform.position + (new Vector3(direction.x, direction.y, 0f) * pushDistance);
 
-        if (IsTileBlocked(targetPos)) { return false; }
-
+        if (IsTileBlocked(targetPos)) { return; }
+        //Debug.Log("2");
         StartCoroutine(Move(targetPos, _pushSpeed));
-        return true;
+        //Debug.Log("3");
     }
 
     private bool IsTileBlocked(Vector3 targetPos)

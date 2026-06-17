@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 44f3661c344dc4a4aafd05f7a8f0fc17
+guid: 496d5dd272cc6b64cb8fbf92dd41c974
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 7
+  fontSize: 8
   forceTextureCase: -2
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Old School Adventures
+  - Lanky Git Variable
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 2

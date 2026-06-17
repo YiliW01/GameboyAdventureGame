@@ -5,6 +5,7 @@ public class BlockPuzzleManager : MonoBehaviour
 {
     [SerializeField] private BlockPuzzleSocket[] correctPositions;
     [SerializeField] private Pushable[] blocks;
+    [SerializeField] private DoorScript blockDoor;
 
     public bool IsPuzzleSolved()
     {
@@ -24,14 +25,7 @@ public class BlockPuzzleManager : MonoBehaviour
         if (IsPuzzleSolved())
         {
             Debug.Log("BLOCK Puzzle Solved!");
-
-            //Loop to turn off pushing of blocks
-            for (int i = 0; i < blocks.Length; i++)
-            {
-                blocks[i].allowPush = false;
-            }
-
-            //do other stuff here
+            blockDoor.OpenDoor();
         }
     }
 }

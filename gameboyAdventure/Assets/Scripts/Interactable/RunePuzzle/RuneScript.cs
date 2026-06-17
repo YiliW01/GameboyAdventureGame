@@ -14,6 +14,7 @@ public class Rune : MonoBehaviour, IInteractable
 
     public bool CanInteract()
     {
+        if(_puzzleManager.IsPuzzleSolved()) { return false; }
         return true;
     }
 
