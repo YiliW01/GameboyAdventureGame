@@ -39,7 +39,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     void StartDialogue()
     {
-        if (QuestTracker.Instance.questComplete == true && currentDialogueDataIndex < dialogueData.Length) { currentDialogueDataIndex++; }
+        if (QuestTracker.Instance.hasWand == true && currentDialogueDataIndex < dialogueData.Length) { currentDialogueDataIndex++; }
 
         isDialogueActive = true;
         dialogueLineIndex = 0;

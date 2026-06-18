@@ -6,7 +6,7 @@ public class Pushable : MonoBehaviour
     [SerializeField] private float _pushSpeed;
     private bool isMoving = false;
     [SerializeField] private LayerMask obstaclesLayer;
-    [SerializeField] private float pushDistance = 2;
+    [SerializeField] private float pushDistance = 1;
     [SerializeField] private BlockPuzzleManager blockPuzzleManager;
 
     private bool CanPush()

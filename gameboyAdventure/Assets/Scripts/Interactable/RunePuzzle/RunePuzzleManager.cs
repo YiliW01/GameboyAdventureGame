@@ -4,6 +4,7 @@ public class RunePuzzleManager : MonoBehaviour
 {
     [SerializeField] private Rune[] _runes;
     [SerializeField] private DoorScript runeDoor;
+    [SerializeField] private WandInteract wand;
 
     public bool IsPuzzleSolved()
     {
@@ -14,7 +15,7 @@ public class RunePuzzleManager : MonoBehaviour
                 return false;
             }
         }
-
+        Debug.Log("1");
         return true;
     }
 
@@ -23,7 +24,12 @@ public class RunePuzzleManager : MonoBehaviour
         if (IsPuzzleSolved())
         {
             Debug.Log("RUNE Puzzle Solved!");
-            runeDoor.OpenDoor();
+
+            //rune door logic
+            //if (runeDoor != null) { runeDoor.OpenDoor(); }
+
+            //wand spawn logic
+            wand.SpawnWand();
         }
     }
 }

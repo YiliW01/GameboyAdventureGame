@@ -25,7 +25,8 @@ public class BlockPuzzleManager : MonoBehaviour
         if (IsPuzzleSolved())
         {
             Debug.Log("BLOCK Puzzle Solved!");
-            blockDoor.OpenDoor();
+            QuestTracker.Instance.blockPuzzleSolved = true;
+            if (blockDoor != null) { blockDoor.OpenDoor(); }
         }
     }
 }

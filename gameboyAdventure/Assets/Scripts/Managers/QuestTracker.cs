@@ -4,24 +4,12 @@ using UnityEngine;
 
 public class QuestTracker : Singleton<QuestTracker>
 {
-    [Header("PuzzleManagers")]
-    [SerializeField] private BlockPuzzleManager blockPuzzleManager;
-    [SerializeField] private RunePuzzleManager runePuzzleManager;
-    [SerializeField] private LeverPuzzleManager leverPuzzleManager;
-
     [SerializeField] private DoorScript wizardDoor;
 
-    //Quest finished flag
-    public bool questComplete;
+    public bool blockPuzzleSolved;
 
     //Wand tracker
     public bool hasWand;
-
-    private void Start()
-    {
-        hasWand = false;
-        questComplete = false;
-    }
 
     public void ObtainWand()
     {
@@ -30,8 +18,6 @@ public class QuestTracker : Singleton<QuestTracker>
 
     public void GiveWand()
     {
-        hasWand = false;
-        questComplete = true;
         wizardDoor.OpenDoor();
     }
 }

@@ -9,8 +9,13 @@ public class Rune : MonoBehaviour, IInteractable
 
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private RunePuzzleManager _puzzleManager;
-    private int _currentSpriteIndex;
+    [SerializeField] private int _currentSpriteIndex;
     public bool IsCorrect => _currentSpriteIndex == _answerSpriteInt;
+
+    private void Awake()
+    {
+        _spriteRenderer.sprite = _runeSprites[_currentSpriteIndex];
+    }
 
     public bool CanInteract()
     {
@@ -20,7 +25,6 @@ public class Rune : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Debug.Log($"Current rune is: {IsCorrect}");
         RotateSprite();
     }
 
@@ -35,6 +39,9 @@ public class Rune : MonoBehaviour, IInteractable
 
         _spriteRenderer.sprite = _runeSprites[_currentSpriteIndex];
 
+        Debug.Log($"Current rune is: {IsCorrect}");
+
         _puzzleManager.CheckPuzzle();
+
     }
 }

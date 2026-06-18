@@ -11,6 +11,7 @@ public class AudioMgr : Singleton<AudioMgr>
     public enum SoundType
     {
         UITick,
+        PuzzleSolve,
     }
 
     [SerializeField] private AudioClip[] _musicClips;
