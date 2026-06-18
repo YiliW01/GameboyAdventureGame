@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static Unity.Collections.Unicode;
 
@@ -6,6 +7,20 @@ public class BlockPuzzleManager : MonoBehaviour
     [SerializeField] private BlockPuzzleSocket[] correctPositions;
     [SerializeField] private Pushable[] blocks;
     [SerializeField] private DoorScript blockDoor;
+    [SerializeField] private List<Vector2> blocksStartPos;
+
+    private void Start()
+    {
+        MakeStartPos();
+    }
+
+    private void MakeStartPos()
+    {
+        for (int i = 0; i < (blocks.Length); i++)
+        {
+            blocksStartPos.Add(blocks[i].gameObject.transform.position);
+        }
+    }
 
     public bool IsPuzzleSolved()
     {
@@ -27,6 +42,14 @@ public class BlockPuzzleManager : MonoBehaviour
             Debug.Log("BLOCK Puzzle Solved!");
             QuestTracker.Instance.blockPuzzleSolved = true;
             if (blockDoor != null) { blockDoor.OpenDoor(); }
+        }
+    }
+
+    public void ResetBlockPos()
+    {
+        for (int i = 0; i < (blocks.Length); i++)
+        {
+            blocks[i].transform.position = blocksStartPos[i];
         }
     }
 }
