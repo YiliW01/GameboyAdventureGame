@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuestTracker : Singleton<QuestTracker>
 {
-    [SerializeField] private DoorScript wizardDoor;
+    [SerializeField] private PaperInteract paper;
 
     public bool blockPuzzleSolved;
 
@@ -18,6 +18,6 @@ public class QuestTracker : Singleton<QuestTracker>
 
     public void GiveWand()
     {
-        wizardDoor.OpenDoor();
+        paper.SpawnPaper();
     }
 }

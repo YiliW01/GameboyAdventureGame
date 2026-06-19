@@ -4,6 +4,7 @@ using UnityEngine;
 public class SignScript : MonoBehaviour, IInteractable
 {
     private bool textActive = false;
+    [SerializeField] private NPCDialogue text;
 
     public bool CanInteract()
     {
@@ -21,6 +22,7 @@ public class SignScript : MonoBehaviour, IInteractable
             textActive = false;
         }
 
+        UIManager.Instance.dialogueText.SetText(text.dialogueLines[0]);
         UIManager.Instance.dialoguePanel.SetActive(textActive);
         PauseManager.Instance.SetPause(textActive);
     }

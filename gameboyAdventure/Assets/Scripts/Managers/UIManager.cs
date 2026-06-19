@@ -23,4 +23,8 @@ public class UIManager : Singleton<UIManager>
     [Header("Popup")]
     public GameObject popUpPanel;
     public Image popUpImage;
+
+    [Header("Intro/Ending")]
+    public NPCDialogue intro;
+    public NPCDialogue ending;
 }

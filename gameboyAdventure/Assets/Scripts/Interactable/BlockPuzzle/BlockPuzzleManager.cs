@@ -42,6 +42,7 @@ public class BlockPuzzleManager : MonoBehaviour
             Debug.Log("BLOCK Puzzle Solved!");
             QuestTracker.Instance.blockPuzzleSolved = true;
             if (blockDoor != null) { blockDoor.OpenDoor(); }
+            AudioMgr.Instance.PlaySound(AudioMgr.SoundType.PuzzleSolve, 1f);
         }
     }
 

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class RabbitNPC : MonoBehaviour
+public class RabbitNPC : MonoBehaviour, IInteractable
 {
     [Header("NPC Dialogue Object:")]
     [SerializeField] private NPCDialogue[] dialogueData;

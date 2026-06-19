@@ -25,7 +25,11 @@ public class Rune : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        RotateSprite();
+        if (CanInteract())
+        {
+            RotateSprite();
+            AudioMgr.Instance.PlaySound(AudioMgr.SoundType.Rune, 1f);
+        }
     }
 
     private void RotateSprite()

@@ -47,6 +47,8 @@ public class LeverScript : MonoBehaviour, IInteractable
                 break;
         }
 
+        AudioMgr.Instance.PlaySound(AudioMgr.SoundType.Lever, 1f);
+
         leverManager.CheckPuzzle();  
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class LeverPuzzleManager : MonoBehaviour
 {
     [SerializeField] private LeverScript[] _levers;
-    [SerializeField] private DoorScript leverDoor;
+    [SerializeField] private PaperInteract paper;
 
     public bool IsPuzzleSolved()
     {
@@ -23,7 +23,8 @@ public class LeverPuzzleManager : MonoBehaviour
         if (IsPuzzleSolved())
         {
             Debug.Log("LEVER Puzzle Solved!");
-            leverDoor.OpenDoor();
+            paper.SpawnPaper();
+            AudioMgr.Instance.PlaySound(AudioMgr.SoundType.PuzzleSolve, 1f);
         }
     }
 }

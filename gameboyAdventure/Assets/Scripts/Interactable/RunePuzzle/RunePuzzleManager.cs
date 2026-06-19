@@ -30,6 +30,7 @@ public class RunePuzzleManager : MonoBehaviour
 
             //wand spawn logic
             wand.SpawnWand();
+            AudioMgr.Instance.PlaySound(AudioMgr.SoundType.PuzzleSolve, 1f);
         }
     }
 }

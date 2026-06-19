@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: Rabbit
   dialogueLines:
-  - Yo thanks
-  - 
+  - You have opened the cell!
+  - Come over on this side,
+  - and I will tell you where the princess is

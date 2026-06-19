@@ -19,7 +19,11 @@ public class ResetLever : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        StartCoroutine(LeverFlick());
+        if (CanInteract())
+        {
+            StartCoroutine(LeverFlick());
+            AudioMgr.Instance.PlaySound(AudioMgr.SoundType.Lever, 1f);
+        }
     }
 
     //hardcoded animation
