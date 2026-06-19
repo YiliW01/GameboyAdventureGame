@@ -11,8 +11,12 @@ public class InteractionDetector : MonoBehaviour
         if (interactableInRange != null)
         {
             interactableInRange.Interact();
+            AudioMgr.Instance.PlaySound(AudioMgr.SoundType.UITick, 1);
         }
-        else { Debug.Log("Nothing to Interact"); }
+        else 
+        { 
+            //Debug.Log("Nothing to Interact"); 
+        }
 
         if (pushableInRange != null)
         {
@@ -29,8 +33,12 @@ public class InteractionDetector : MonoBehaviour
             }
 
             pushableInRange.TryPush(direction);
+            AudioMgr.Instance.PlaySound(AudioMgr.SoundType.UITick, 1);
         }
-        else { Debug.Log("Nothing to Push"); }
+        else 
+        { 
+            //Debug.Log("Nothing to Push"); 
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

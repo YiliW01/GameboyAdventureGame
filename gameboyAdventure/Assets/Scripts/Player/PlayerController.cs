@@ -5,11 +5,11 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     private Vector2 _input;
-    private Rigidbody2D _rb;
     private Vector3 _direction;
 
+    [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private Animator animator;
     [SerializeField] private float speed;
-
     [SerializeField] private InteractionDetector _interactor;
 
     private void Awake()
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
         if (PauseManager.Instance.IsGamePaused)
         {
             _rb.linearVelocity = Vector2.zero;
+            animator.SetBool("isWalking", false);
             return;
         }
 
@@ -30,13 +31,24 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyMovement()
     {
-        _rb.linearVelocity = _direction * speed; // * Time.deltaTime;
+        _rb.linearVelocity = (_input * speed);  //* Time.deltaTime;
+        animator.SetBool("isWalking", _rb.linearVelocity.magnitude > 0);
     }
 
     public void Move(InputAction.CallbackContext context)
     {
+        if (context.canceled)
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetFloat("LastInputX", _input.x);
+            animator.SetFloat("LastInputY", _input.y);
+        }
+
         _input = context.ReadValue<Vector2>();
-        _direction = new Vector2(_input.x, _input.y);
+        //_direction = new Vector2(_input.x, _input.y);
+
+        animator.SetFloat("InputX", _input.x);
+        animator.SetFloat("InputY", _input.y);
     }
 
     public void Interact(InputAction.CallbackContext context)
@@ -54,8 +66,8 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             //Debug.Log("Player Backing");
-            if (PauseManager.Instance.IsGamePaused) { PauseManager.Instance.SetPause(false); }
-            else { PauseManager.Instance.SetPause(true); }
+            //if (PauseManager.Instance.IsGamePaused) { PauseManager.Instance.SetPause(false); }
+            //else { PauseManager.Instance.SetPause(true); }
         }
     }
 }
