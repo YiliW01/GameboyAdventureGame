@@ -1,30 +1,41 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class SceneSequence : MonoBehaviour
 {
     [SerializeField] private NPCDialogue dialogueData;
+    [SerializeField] private NPCDialogue dialogueData2;
 
     private GameObject dialoguePanel => UIManager.Instance.dialoguePanel;
     private TMP_Text dialogueText => UIManager.Instance.dialogueText;
-    private TMP_Text nameText => UIManager.Instance.nameText;
 
     [SerializeField] private string nextScene;
 
+    [SerializeField] private SpriteRenderer bg;
+    [SerializeField] private Sprite rabbit, princess;
+
     private int dialogueLineIndex;
+
+    private bool cutscenePlayed;
+    private bool isCutscenePlaying;
 
     private void Start()
     {
         StartDialogue();
+        bg.sprite = rabbit;
+        cutscenePlayed = false;
     }
 
     public void Input(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            NextLine();
+            if (isCutscenePlaying) { return; }
             AudioMgr.Instance.PlaySound(AudioMgr.SoundType.UITick, 1f);
+            NextLine();
         }
     }
 
@@ -32,12 +43,8 @@ public class SceneSequence : MonoBehaviour
     {
         dialogueLineIndex = 0;
 
-        nameText.SetText(dialogueData.npcName);
-
         dialoguePanel.SetActive(true);
         PauseManager.Instance.SetPause(true);
-
-        dialogueText.SetText(dialogueData.dialogueLines[dialogueLineIndex]);
 
         TypeText();
 
@@ -45,19 +52,34 @@ public class SceneSequence : MonoBehaviour
 
     public void NextLine()
     {
-        if (++dialogueLineIndex < dialogueData.dialogueLines.Length)
+        if (cutscenePlayed)
         {
-            TypeText();
+            if (++dialogueLineIndex < dialogueData2.dialogueLines.Length)
+            {
+                TypeText();
+            }
+            else
+            {
+                EndDialogue();
+            }
         }
         else
         {
-            EndDialogue();
+            if (++dialogueLineIndex < dialogueData.dialogueLines.Length)
+            {
+                TypeText();
+            }
+            else
+            {
+                EndDialogue();
+            }
         }
     }
 
     void TypeText()
     {
-        dialogueText.SetText(dialogueData.dialogueLines[dialogueLineIndex]);
+        if (cutscenePlayed) { dialogueText.SetText(dialogueData2.dialogueLines[dialogueLineIndex]); }
+        else { dialogueText.SetText(dialogueData.dialogueLines[dialogueLineIndex]); }
     }
 
     public void EndDialogue()
@@ -65,6 +87,24 @@ public class SceneSequence : MonoBehaviour
         dialogueText.SetText("");
         dialoguePanel.SetActive(false);
         PauseManager.Instance.SetPause(false);
-        SceneLoader.Instance.LoadScene(nextScene);
+
+        if (cutscenePlayed)
+        {
+            SceneLoader.Instance.LoadScene(nextScene);
+        }
+        else
+        {
+            StartCoroutine(Cutscene());
+        }
+    }
+
+    private IEnumerator Cutscene()
+    {
+        isCutscenePlaying = true;
+        yield return new WaitForSeconds(1f);
+        bg.sprite = princess;
+        cutscenePlayed = true;
+        isCutscenePlaying = false;
+        StartDialogue();
     }
 }

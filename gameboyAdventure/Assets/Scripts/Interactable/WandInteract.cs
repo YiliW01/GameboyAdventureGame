@@ -4,6 +4,8 @@ public class WandInteract : MonoBehaviour, IInteractable
 {
     private bool hasItem = false;
     [SerializeField] private GameObject itemSprite;
+    [SerializeField] private NPCDialogue text;
+    private bool textActive;
 
     public bool CanInteract()
     {
@@ -15,7 +17,20 @@ public class WandInteract : MonoBehaviour, IInteractable
     {
         if (CanInteract())
         {
-            hasItem = false;
+            if (!textActive)
+            {
+                textActive = true;
+            }
+            else
+            {
+                textActive = false;
+                hasItem = false;
+            }
+
+            UIManager.Instance.dialogueText.SetText(text.dialogueLines[0]);
+            UIManager.Instance.dialoguePanel.SetActive(textActive);
+            PauseManager.Instance.SetPause(textActive);
+
             QuestTracker.Instance.ObtainWand();
             itemSprite.SetActive(false);
         }
