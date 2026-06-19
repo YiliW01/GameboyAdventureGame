@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: Rabbit
   dialogueLines:
-  - Hey, I know you're looking for the princess.
+  - I know you're looking for the princess.
   - Free me from this cell and I will tell you where she is.

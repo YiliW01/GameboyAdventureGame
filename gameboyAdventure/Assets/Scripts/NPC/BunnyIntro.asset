@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be408b57a3933424787e070e5f14f56f, type: 3}
-  m_Name: WizardDialogue2
+  m_Name: BunnyIntro
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
-  npcName: WIZARD
+  npcName: Rabbit
   dialogueLines:
-  - Thank you for bringing me my wand!
-  - The solution is on the table...
-  - Wait why is there only half?
+  - Hey, you!
+  - Over here, the rabbit in the cell!

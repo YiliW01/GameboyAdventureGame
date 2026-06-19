@@ -2,37 +2,45 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SceneSequence : MonoBehaviour
+public class GoToRabbit : MonoBehaviour, IInteractable
 {
+    [Header("Text Object:")]
     [SerializeField] private NPCDialogue dialogueData;
 
     private GameObject dialoguePanel => UIManager.Instance.dialoguePanel;
     private TMP_Text dialogueText => UIManager.Instance.dialogueText;
-    private TMP_Text nameText => UIManager.Instance.nameText;
-
-    [SerializeField] private string nextScene;
 
     private int dialogueLineIndex;
+    private bool isDialogueActive;
 
-    private void Start()
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        StartDialogue();
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            StartDialogue();
+        }
     }
 
-    public void Input(InputAction.CallbackContext context)
+    public bool CanInteract()
     {
-        if (context.performed)
+        return !isDialogueActive;
+    }
+
+    public void Interact()
+    {
+        if (dialogueData == null || PauseManager.Instance.IsGamePaused && !isDialogueActive)
+            return;
+
+        if (isDialogueActive)
         {
             NextLine();
-            AudioMgr.Instance.PlaySound(AudioMgr.SoundType.UITick, 1f);
         }
     }
 
     void StartDialogue()
     {
+        isDialogueActive = true;
         dialogueLineIndex = 0;
-
-        nameText.SetText(dialogueData.npcName);
 
         dialoguePanel.SetActive(true);
         PauseManager.Instance.SetPause(true);
@@ -43,7 +51,7 @@ public class SceneSequence : MonoBehaviour
 
     }
 
-    public void NextLine()
+    void NextLine()
     {
         if (++dialogueLineIndex < dialogueData.dialogueLines.Length)
         {
@@ -62,9 +70,11 @@ public class SceneSequence : MonoBehaviour
 
     public void EndDialogue()
     {
+        isDialogueActive = false;
         dialogueText.SetText("");
         dialoguePanel.SetActive(false);
         PauseManager.Instance.SetPause(false);
-        SceneLoader.Instance.LoadScene(nextScene);
+
+        Destroy(gameObject);
     }
 }

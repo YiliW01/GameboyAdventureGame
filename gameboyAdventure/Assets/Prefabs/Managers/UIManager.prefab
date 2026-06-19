@@ -558,7 +558,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -627,6 +627,8 @@ MonoBehaviour:
   nameText: {fileID: 6282545218121560478}
   popUpPanel: {fileID: 3410709295082967379}
   popUpImage: {fileID: 1717895088693176230}
+  intro: {fileID: 0}
+  ending: {fileID: 0}
 --- !u!1 &5972610263171057502
 GameObject:
   m_ObjectHideFlags: 0

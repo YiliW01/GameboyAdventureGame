@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioMgr
   _willNotDestroyOnLoad: 1
   _musicClips:
-  - {fileID: 8300000, guid: 712e6a07ad715eb4cbff0e09996f9c41, type: 3}
+  - {fileID: 8300000, guid: 6a92cc3c154b91c47bb6e61d755442d6, type: 3}
   - {fileID: 8300000, guid: a4789a2948efda94c8c33a8d1b1fff61, type: 3}
   _soundClips:
   - {fileID: 8300000, guid: 5184ac83768936745a7d9feade5db066, type: 3}

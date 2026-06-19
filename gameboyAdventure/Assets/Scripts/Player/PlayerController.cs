@@ -31,14 +31,12 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyMovement()
     {
-        _rb.linearVelocity = (_direction * speed);  //* Time.deltaTime;
+        _rb.linearVelocity = (_input * speed);  //* Time.deltaTime;
         animator.SetBool("isWalking", _rb.linearVelocity.magnitude > 0);
     }
 
     public void Move(InputAction.CallbackContext context)
     {
-        if (PauseManager.Instance.IsGamePaused) return;
-
         if (context.canceled)
         {
             animator.SetBool("isWalking", false);
@@ -47,7 +45,7 @@ public class PlayerController : MonoBehaviour
         }
 
         _input = context.ReadValue<Vector2>();
-        _direction = new Vector2(_input.x, _input.y);
+        //_direction = new Vector2(_input.x, _input.y);
 
         animator.SetFloat("InputX", _input.x);
         animator.SetFloat("InputY", _input.y);
