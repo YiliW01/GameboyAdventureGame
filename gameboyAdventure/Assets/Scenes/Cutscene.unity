@@ -341,7 +341,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneSequence
   dialogueData: {fileID: 11400000, guid: a45b2745f638fa544a1bf54fccd36a6b, type: 2}
+  dialogueData2: {fileID: 0}
   nextScene: SampleScene
+  bg: {fileID: 0}
+  rabbit: {fileID: 0}
+  princess: {fileID: 0}
+  intro: 1
 --- !u!4 &1566332084
 Transform:
   m_ObjectHideFlags: 0

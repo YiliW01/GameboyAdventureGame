@@ -17,6 +17,8 @@ public class SceneSequence : MonoBehaviour
     [SerializeField] private SpriteRenderer bg;
     [SerializeField] private Sprite rabbit, princess;
 
+    [SerializeField] private bool intro;
+
     private int dialogueLineIndex;
 
     private bool cutscenePlayed;
@@ -88,7 +90,13 @@ public class SceneSequence : MonoBehaviour
         dialoguePanel.SetActive(false);
         PauseManager.Instance.SetPause(false);
 
-        if (cutscenePlayed)
+        if (intro)
+        {
+            SceneLoader.Instance.LoadScene(nextScene);
+            return;
+        }
+
+        if(cutscenePlayed)
         {
             SceneLoader.Instance.LoadScene(nextScene);
         }
